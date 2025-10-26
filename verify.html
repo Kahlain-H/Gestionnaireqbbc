@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire QBBC - V&eacute;rifier ou modifier un adh&eacute;rent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/verify.css">
+</head>
+<body class="verify-page" data-base-path="./">
+    <button class="back-button" type="button" data-action="go-back">Retour</button>
+    <div class="verify-shell">
+        <header class="verify-header">
+            <div class="brand-block">
+                <img src="./assets/images/logo1.png" alt="Logo Quincy Bussy Basket Club" class="brand-logo">
+                <div class="brand-text">
+                    <p class="brand-subtitle">Contr&ocirc;le des fiches</p>
+                    <h1>V&eacute;rifier ou modifier un adh&eacute;rent</h1>
+                </div>
+            </div>
+            <nav class="verify-nav" aria-label="Navigation v&eacute;rification">
+                <a class="nav-link" href="./user.html">Tableau utilisateur</a>
+                <a class="nav-link" href="./membres.html">Base compl&egrave;te</a>
+                <button class="nav-link" type="button" data-action="open-create">Ajouter un adh&eacute;rent</button>
+                <button class="nav-link nav-link--danger" type="button" data-action="logout">D&eacute;connexion</button>
+            </nav>
+        </header>
+
+        <section class="verify-search" aria-label="Rechercher un adh&eacute;rent">
+            <form class="search-form" data-member-search-form>
+                <label for="member-search-input">Rechercher par nom, pr&eacute;nom, num&eacute;ro d&apos;adh&eacute;rent ou t&eacute;l&eacute;phone</label>
+                <div class="search-bar">
+                    <input type="search" id="member-search-input" data-member-search-input placeholder="Ex: Lea Martin ou 06 00 00 00 00" required>
+                    <button type="submit" class="btn-primary">Rechercher</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="verify-refine" data-refine-panel hidden>
+            <p>Plusieurs adh&eacute;rents correspondent &agrave; cette recherche. Pr&eacute;cisez votre requ&ecirc;te.</p>
+            <form class="search-form" data-member-refine-form>
+                <label for="member-refine-input">Ajoutez un num&eacute;ro de t&eacute;l&eacute;phone ou un num&eacute;ro d&apos;adh&eacute;rent</label>
+                <div class="search-bar">
+                    <input type="search" id="member-refine-input" data-member-refine-input placeholder="Ex: +33 6... ou QBBC-2025-001" required>
+                    <button type="submit" class="btn-secondary">Affiner</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="verify-status" data-result-container hidden>
+            <p class="verify-status__message" data-result-message></p>
+            <div class="verify-status__actions" data-result-actions>
+                <button type="button" class="btn-primary" data-action="view-member" hidden>View details</button>
+                <button type="button" class="btn-secondary" data-action="create-member" hidden>Cr&eacute;er un nouvel adh&eacute;rent</button>
+            </div>
+        </section>
+
+        <section class="verify-detail" aria-live="polite" data-member-detail hidden>
+            <header class="verify-detail__header">
+                <div>
+                    <p class="verify-detail__eyebrow">Fiche adh&eacute;rent</p>
+                    <h2 data-member-fullname>Adh&eacute;rent</h2>
+                    <p class="verify-detail__meta">N&deg; adh&eacute;rent : <span data-member-number>--</span> &bull; Statut : <span data-member-status>--</span></p>
+                </div>
+                <div class="verify-detail__header-actions">
+                    <button type="button" class="btn-secondary" data-action="toggle-edit">Modifier</button>
+                    <button type="button" class="btn-ghost" data-action="quit-detail">Quitter</button>
+                </div>
+            </header>
+            <div class="verify-detail__body">
+                <aside class="verify-detail__photo" data-member-photo>
+                    <img src="" alt="Photo de l&apos;adh&eacute;rent" data-member-photo-img hidden>
+                    <p data-member-photo-empty>Aucune photo enregistr&eacute;e.</p>
+                </aside>
+                <form class="verify-detail__form" data-member-form>
+                    <fieldset class="form-section">
+                        <legend>Identit&eacute;</legend>
+                        <div class="form-grid form-grid--two">
+                            <div class="form-row">
+                                <label for="detail-membershipNumber">N&deg; adh&eacute;rent</label>
+                                <input type="text" id="detail-membershipNumber" name="membershipNumber" readonly>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-status">Statut</label>
+                                <select id="detail-status" name="status">
+                                    <option value="active">Actif</option>
+                                    <option value="inactive">Inactif</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-lastname">Nom</label>
+                                <input type="text" id="detail-lastname" name="lastname" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-firstname">Pr&eacute;nom</label>
+                                <input type="text" id="detail-firstname" name="firstname" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-birthdate">Date de naissance</label>
+                                <input type="date" id="detail-birthdate" name="birthdate" required>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-gender">Sexe</label>
+                                <select id="detail-gender" name="gender">
+                                    <option value="">Non d&eacute;fini</option>
+                                    <option value="F">F&eacute;minin</option>
+                                    <option value="M">Masculin</option>
+                                    <option value="Autre">Autre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-section">
+                        <legend>Contact &amp; cat&eacute;gorie</legend>
+                        <div class="form-grid form-grid--two">
+                            <div class="form-row">
+                                <label for="detail-phone">T&eacute;l&eacute;phone</label>
+                                <input type="tel" id="detail-phone" name="phone">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-category">Cat&eacute;gorie</label>
+                                <select id="detail-category" name="category">
+                                    <option value="U7">U7</option>
+                                    <option value="U9">U9</option>
+                                    <option value="U11">U11</option>
+                                    <option value="U13">U13</option>
+                                    <option value="U15">U15</option>
+                                    <option value="U18">U18</option>
+                                    <option value="U21">U21</option>
+                                    <option value="Senior">Senior</option>
+                                </select>
+                            </div>
+                            <div class="form-row form-row--full">
+                                <label for="detail-address">Adresse</label>
+                                <textarea id="detail-address" name="address" rows="2"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-email">E-mail</label>
+                                <input type="email" id="detail-email" name="email">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-section">
+                        <legend>Famille &amp; autorisations</legend>
+                        <div class="form-grid form-grid--three">
+                            <div class="form-row">
+                                <label for="detail-parentLastname">Parent - Nom</label>
+                                <input type="text" id="detail-parentLastname" name="parentLastname">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-parentFirstname">Parent - Pr&eacute;nom</label>
+                                <input type="text" id="detail-parentFirstname" name="parentFirstname">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-parentPhone">Parent - T&eacute;l&eacute;phone</label>
+                                <input type="tel" id="detail-parentPhone" name="parentPhone">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-passSport">PASS SPORT</label>
+                                <select id="detail-passSport" name="passSport">
+                                    <option value="no">Non</option>
+                                    <option value="yes">Oui</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-passSportAmount">Montant PASS SPORT (&euro;)</label>
+                                <input type="number" id="detail-passSportAmount" name="passSportAmount" min="0" step="5">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-ticketLoisirCaf">Ticket Loisir CAF</label>
+                                <select id="detail-ticketLoisirCaf" name="ticketLoisirCaf">
+                                    <option value="no">Non</option>
+                                    <option value="yes">Oui</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-imageRights">Droit image</label>
+                                <select id="detail-imageRights" name="imageRights">
+                                    <option value="Non demande">Non demand&eacute;</option>
+                                    <option value="Autorise">Autoris&eacute;</option>
+                                    <option value="Refuse">Refus&eacute;</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-insurance">Assurance</label>
+                                <select id="detail-insurance" name="insurance">
+                                    <option value="no">Non</option>
+                                    <option value="yes">Oui</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-cni">CNI</label>
+                                <select id="detail-cni" name="cni">
+                                    <option value="no">Non</option>
+                                    <option value="yes">Oui</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-medicalCertificate">Certificat m&eacute;dical</label>
+                                <select id="detail-medicalCertificate" name="medicalCertificate">
+                                    <option value="no">Non</option>
+                                    <option value="yes">Oui</option>
+                                </select>
+                            </div>
+                            <div class="form-row form-row--full">
+                                <label for="detail-injury">Blessure / Observations</label>
+                                <textarea id="detail-injury" name="injury" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-section">
+                        <legend>Documents &amp; paiements</legend>
+                        <div class="form-grid form-grid--three">
+                            <div class="form-row">
+                                <label for="detail-photo">Photo (URL)</label>
+                                <input type="text" id="detail-photo" name="photo" placeholder="assets/images/members/...">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-photoFile">Photo (nouvelle)</label>
+                                <input type="file" id="detail-photoFile" name="photoFile" accept="image/*">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-passSportReference">R&eacute;f&eacute;rence PASS SPORT</label>
+                                <input type="text" id="detail-passSportReference" name="passSportReference">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-assuranceReference">R&eacute;f&eacute;rence assurance</label>
+                                <input type="text" id="detail-assuranceReference" name="assuranceReference">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-role">R&ocirc;le interne</label>
+                                <input type="text" id="detail-role" name="role">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-username">Identifiant portail</label>
+                                <input type="text" id="detail-username" name="username">
+                            </div>
+                            <div class="form-row">
+                                <label for="detail-password">Mot de passe portail</label>
+                                <input type="text" id="detail-password" name="password">
+                            </div>
+                        </div>
+
+                        <div class="payment-plan" data-payment-plan>
+                            <div class="payment-plan__control">
+                                <label for="detail-payment-count">Nombre de paiements</label>
+                                <select id="detail-payment-count" name="paymentCount" data-payment-count>
+                                    <option value="1">1 &eacute;ch&eacute;ance</option>
+                                    <option value="2">2 &eacute;ch&eacute;ances</option>
+                                    <option value="3">3 &eacute;ch&eacute;ances</option>
+                                </select>
+                            </div>
+                            <div class="payment-plan__rows" data-payment-plan-grid>
+                                <div class="payment-plan__row" data-plan-index="1">
+                                    <p class="payment-plan__row-title">1er paiement</p>
+                                    <div class="form-grid form-grid--two">
+                                        <div class="form-row">
+                                            <label for="detail-payment1-amount">Montant (&euro;)</label>
+                                            <input type="number" id="detail-payment1-amount" name="payment1Amount" data-plan-amount="1" min="0" step="0.01">
+                                        </div>
+                                        <div class="form-row">
+                                            <label for="detail-payment1-date">Date pr&eacute;vue</label>
+                                            <input type="date" id="detail-payment1-date" name="payment1Date" data-plan-date="1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="payment-plan__row" data-plan-index="2" hidden>
+                                    <p class="payment-plan__row-title">2e paiement</p>
+                                    <div class="form-grid form-grid--two">
+                                        <div class="form-row">
+                                            <label for="detail-payment2-amount">Montant (&euro;)</label>
+                                            <input type="number" id="detail-payment2-amount" name="payment2Amount" data-plan-amount="2" min="0" step="0.01">
+                                        </div>
+                                        <div class="form-row">
+                                            <label for="detail-payment2-date">Date pr&eacute;vue</label>
+                                            <input type="date" id="detail-payment2-date" name="payment2Date" data-plan-date="2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="payment-plan__row" data-plan-index="3" hidden>
+                                    <p class="payment-plan__row-title">3e paiement</p>
+                                    <div class="form-grid form-grid--two">
+                                        <div class="form-row">
+                                            <label for="detail-payment3-amount">Montant (&euro;)</label>
+                                            <input type="number" id="detail-payment3-amount" name="payment3Amount" data-plan-amount="3" min="0" step="0.01">
+                                        </div>
+                                        <div class="form-row">
+                                            <label for="detail-payment3-date">Date pr&eacute;vue</label>
+                                            <input type="date" id="detail-payment3-date" name="payment3Date" data-plan-date="3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-summary" data-payment-summary>
+                            <div class="payment-summary__item">
+                                <span>Total &agrave; payer</span>
+                                <strong data-payment-total-due>0&nbsp;&euro;</strong>
+                            </div>
+                            <div class="payment-summary__item">
+                                <span>Total pay&eacute;</span>
+                                <strong data-payment-total-paid>0&nbsp;&euro;</strong>
+                            </div>
+                            <div class="payment-summary__item">
+                                <span>Reste &agrave; payer</span>
+                                <strong data-payment-remaining>0&nbsp;&euro;</strong>
+                            </div>
+                        </div>
+
+                        <div class="payment-history" data-payment-history>
+                            <div class="payment-history__header">
+                                <h3>Historique des paiements</h3>
+                                <button type="button" class="btn-tertiary btn-small" data-action="toggle-payment-form">Ajouter un paiement</button>
+                            </div>
+                            <p class="payment-history__empty" data-payment-empty>Aucun paiement enregistr&eacute;.</p>
+                            <ul class="payment-history__list" data-payment-list></ul>
+                            <form class="payment-add" data-payment-form hidden>
+                                <div class="payment-add__grid">
+                                    <div class="form-row">
+                                        <label for="detail-payment-date">Date du paiement</label>
+                                        <input type="date" id="detail-payment-date" data-payment-date required>
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="detail-payment-amount">Montant vers&eacute; (&euro;)</label>
+                                        <input type="number" id="detail-payment-amount" data-payment-amount min="0" step="0.01" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="detail-payment-method">Moyen de paiement</label>
+                                        <select id="detail-payment-method" data-payment-method required>
+                                            <option value="Cash">Esp&egrave;ces</option>
+                                            <option value="Check">Ch&egrave;que</option>
+                                            <option value="Card">Carte</option>
+                                            <option value="Transfer">Virement</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="payment-add__actions">
+                                    <button type="submit" class="btn-primary btn-small" data-action="save-payment">Valider</button>
+                                    <button type="button" class="btn-ghost btn-small" data-action="cancel-payment">Annuler</button>
+                                </div>
+                            </form>
+                        </div>
+                    </fieldset>
+
+                    <div class="verify-detail__form-actions">
+                        <button type="submit" class="btn-primary" data-action="save-member" disabled>Enregistrer</button>
+                        <p class="form-feedback" data-detail-feedback hidden></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            &copy; 2025 QBBC &mdash; Gestionnaire officiel du club
+        </footer>
+    </div>
+
+    <script src="./assets/js/navigation.js" defer></script>
+    <script src="./assets/js/verify.js" defer></script>
+</body>
+</html>

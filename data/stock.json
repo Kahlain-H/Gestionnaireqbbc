@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "product": "Ballon d'entra\u00EEnement taille 7",
+        "category": "Mat\u00E9riel",
+        "quantity": 12,
+        "alertThreshold": 5,
+        "unitPrice": 25.0,
+        "purchaseDate": "2025-09-02",
+        "supplier": "Decathlon",
+        "status": "available"
+    },
+    {
+        "id": 2,
+        "product": "Chasubles d'entra\u00EEnement",
+        "category": "Textile",
+        "quantity": 8,
+        "alertThreshold": 10,
+        "unitPrice": 12.5,
+        "purchaseDate": "2025-08-28",
+        "supplier": "Intersport",
+        "status": "out"
+    },
+    {
+        "id": 3,
+        "product": "Shorts officiels",
+        "category": "Textile",
+        "quantity": 25,
+        "alertThreshold": 15,
+        "unitPrice": 18.0,
+        "purchaseDate": "2025-07-18",
+        "supplier": "Sport3000",
+        "status": "available"
+    },
+    {
+        "id": 4,
+        "product": "Sifflets arbitres",
+        "category": "Accessoires",
+        "quantity": 4,
+        "alertThreshold": 6,
+        "unitPrice": 7.9,
+        "purchaseDate": "2025-10-05",
+        "supplier": "ArbiPro",
+        "status": "ordered"
+    },
+    {
+        "id": 5,
+        "product": "Chaussures junior",
+        "category": "Chaussures",
+        "quantity": 6,
+        "alertThreshold": 8,
+        "unitPrice": 55.0,
+        "purchaseDate": "2025-09-15",
+        "supplier": "Courtside",
+        "status": "available"
+    }
+]

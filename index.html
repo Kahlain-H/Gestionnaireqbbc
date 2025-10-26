@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire QBBC - Connexion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body class="login-page" data-base-path="./">
+    <button class="back-button" type="button" data-action="go-back">Retour</button>
+    <main class="login-container">
+        <div class="login-logo-banner">
+            <img src="./assets/images/logo1.png" alt="Logo Quincy Bussy Basket Club" class="brand-logo" loading="lazy">
+        </div>
+        <header class="brand-header">
+            <h1 class="brand-title">
+                Gestion des adh&eacute;rents du <span>Quincy Bussy Basket Club</span>
+            </h1>
+            <p class="brand-subtitle">Interface officielle de suivi des licenci&eacute;s et partenaires</p>
+        </header>
+
+        <section class="login-card" aria-labelledby="login-title">
+            <h2 id="login-title">Connexion</h2>
+            <form id="login-form" novalidate>
+                <div class="form-group">
+                    <label for="username">Identifiant</label>
+                    <input type="text" id="username" name="username" placeholder="ex: secretaire.qbbc" autocomplete="username" required>
+                    <p class="input-hint">Identifiant fourni par le bureau du club</p>
+                </div>
+                <div class="form-group password-group">
+                    <label for="password">Mot de passe</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Votre mot de passe" autocomplete="current-password" required>
+                        <button type="button" class="toggle-password" aria-pressed="false" aria-label="Afficher le mot de passe">
+                            <span class="toggle-password__icon" aria-hidden="true">&#128065;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Se connecter</button>
+                </div>
+                <p class="form-feedback" role="alert" hidden></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        &copy; 2025 QBBC &ndash; Gestionnaire officiel du club
+    </footer>
+
+    <script src="./assets/js/navigation.js" defer></script>
+    <script src="./assets/js/login.js" defer></script>
+</body>
+</html>

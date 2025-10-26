@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire QBBC - Espace Utilisateur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/user.css">
+</head>
+<body class="user-page" data-base-path="./">
+    <button class="back-button" type="button" data-action="go-back">Retour</button>
+    <div class="user-shell">
+        <header class="user-header">
+            <div class="brand-block">
+                <img src="./assets/images/logo1.png" alt="Logo Quincy Bussy Basket Club" class="brand-logo">
+                <div class="brand-text">
+                    <p class="brand-subtitle">Espace utilisateur</p>
+                    <h1>Portail op&eacute;rationnel du Quincy Bussy Basket Club</h1>
+                </div>
+            </div>
+            <nav class="user-nav" aria-label="Navigation principale">
+                <button class="nav-link" type="button" data-modal-open="create-member">Ajouter un adh&eacute;rent</button>
+                <a class="nav-link" href="./verify.html">V&eacute;rifier ou modifier</a>
+                <a class="nav-link" href="./pages/dashboard.html">Statistiques &amp; comptabilit&eacute;</a>
+                <a class="nav-link" href="./pages/stock.html">Gestion du stock</a>
+                <button class="nav-link" type="button" data-action="go-admin" data-role-gate="admin">Basculer vers l'espace admin</button>
+                <button class="nav-link nav-link--danger" type="button" data-action="logout">D&eacute;connexion</button>
+            </nav>
+        </header>
+
+        <section class="user-actions" aria-label="Actions rapides">
+            <article class="user-card" data-action-target="create-member">
+                <h2>Ajouter un nouvel adh&eacute;rent</h2>
+                <p>Enregistrez les nouvelles licences, g&eacute;rez les documents et affectez les cat&eacute;gories en quelques clics.</p>
+                <button class="btn-primary" type="button" data-modal-open="create-member">Add New Member</button>
+            </article>
+            <article class="user-card">
+                <h2>Consulter la base</h2>
+                <p>Acc&eacute;dez &agrave; la liste compl&egrave;te des adh&eacute;rents, appliquez des filtres et exportez vos donn&eacute;es.</p>
+                <a class="btn-secondary" href="./verify.html">View / Edit Members</a>
+            </article>
+            <article class="user-card">
+                <h2>Statistiques &amp; comptabilit&eacute;</h2>
+                <p>Suivez les paiements, le PASS SPORT et les indicateurs financiers depuis le tableau de bord central.</p>
+                <a class="btn-secondary" href="./pages/dashboard.html">Statistics &amp; Accounting</a>
+            </article>
+            <article class="user-card">
+                <h2>Inventaire du club</h2>
+                <p>V&eacute;rifiez l'&eacute;tat du stock, les alertes mat&eacute;riels et planifiez les r&eacute;assorts.</p>
+                <a class="btn-secondary" href="./pages/stock.html">Stock Management</a>
+            </article>
+            <article class="user-card user-card--admin" data-role-gate="admin">
+                <h2>Administration avanc&eacute;e</h2>
+                <p>Acc&eacute;dez &agrave; la gestion globale des donn&eacute;es, aux configurations et aux sauvegardes.</p>
+                <button class="btn-secondary" type="button" data-action="go-admin">Switch to Admin Panel</button>
+            </article>
+        </section>
+
+        <footer class="app-footer">
+            &copy; 2025 QBBC &mdash; Gestionnaire officiel du club
+        </footer>
+    </div>
+
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden data-modal="create-member">
+        <div class="modal__overlay" data-modal-close></div>
+        <div class="modal__content modal__content--scrollable">
+            <header class="modal__header">
+                <div>
+                    <p class="modal__eyebrow">Formulaire principal</p>
+                    <h2 id="modal-title">New Member</h2>
+                </div>
+                <button type="button" class="modal__quit" data-modal-close>Close / Quit</button>
+            </header>
+            <form class="modal__form" data-form="create-member" enctype="multipart/form-data">
+                <fieldset class="form-section">
+                    <legend>Identit&eacute;</legend>
+                    <div class="form-grid form-grid--two">
+                        <div class="form-row">
+                            <label for="member-number">N&deg; adh&eacute;rent</label>
+                            <input type="text" id="member-number" name="membershipNumber" placeholder="Auto" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-status">Statut</label>
+                            <select id="member-status" name="status" required>
+                                <option value="active">Actif</option>
+                                <option value="inactive">Inactif</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-lastname">Nom</label>
+                            <input type="text" id="member-lastname" name="lastname" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-firstname">Pr&eacute;nom</label>
+                            <input type="text" id="member-firstname" name="firstname" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-birthdate">Date de naissance</label>
+                            <input type="date" id="member-birthdate" name="birthdate" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-gender">Sexe</label>
+                            <select id="member-gender" name="gender">
+                                <option value="">Non d&eacute;fini</option>
+                                <option value="F">F&eacute;minin</option>
+                                <option value="M">Masculin</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <legend>Contact &amp; cat&eacute;gorie</legend>
+                    <div class="form-grid form-grid--two">
+                        <div class="form-row">
+                            <label for="member-phone">T&eacute;l&eacute;phone</label>
+                            <input type="tel" id="member-phone" name="phone" placeholder="+33">
+                        </div>
+                        <div class="form-row">
+                            <label for="member-category">Cat&eacute;gorie</label>
+                            <select id="member-category" name="category">
+                                <option value="U7">U7</option>
+                                <option value="U9">U9</option>
+                                <option value="U11">U11</option>
+                                <option value="U13">U13</option>
+                                <option value="U15">U15</option>
+                                <option value="U18">U18</option>
+                                <option value="U21">U21</option>
+                                <option value="Senior">Senior</option>
+                            </select>
+                        </div>
+                        <div class="form-row form-row--full">
+                            <label for="member-address">Adresse</label>
+                            <textarea id="member-address" name="address" rows="2"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-email">E-mail</label>
+                            <input type="email" id="member-email" name="email" placeholder="prenom.nom@qbbc.fr">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <legend>Famille &amp; autorisations</legend>
+                    <div class="form-grid form-grid--three">
+                        <div class="form-row">
+                            <label for="parent-lastname">Parent - Nom</label>
+                            <input type="text" id="parent-lastname" name="parentLastname">
+                        </div>
+                        <div class="form-row">
+                            <label for="parent-firstname">Parent - Pr&eacute;nom</label>
+                            <input type="text" id="parent-firstname" name="parentFirstname">
+                        </div>
+                        <div class="form-row">
+                            <label for="parent-phone">Parent - T&eacute;l&eacute;phone</label>
+                            <input type="tel" id="parent-phone" name="parentPhone">
+                        </div>
+                        <div class="form-row">
+                            <label for="member-pass-sport">PASS SPORT</label>
+                            <select id="member-pass-sport" name="passSport">
+                                <option value="no">Non</option>
+                                <option value="yes">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-pass-amount">Montant PASS SPORT (&euro;)</label>
+                            <input type="number" id="member-pass-amount" name="passSportAmount" min="0" step="5">
+                        </div>
+                        <div class="form-row">
+                            <label for="member-ticket-loisir">Ticket Loisir CAF</label>
+                            <select id="member-ticket-loisir" name="ticketLoisirCaf">
+                                <option value="no">Non</option>
+                                <option value="yes">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-image-rights">Droit image</label>
+                            <select id="member-image-rights" name="imageRights">
+                                <option value="Non demande">Non demand&eacute;</option>
+                                <option value="Autorise">Autoris&eacute;</option>
+                                <option value="Refuse">Refus&eacute;</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-insurance">Assurance</label>
+                            <select id="member-insurance" name="insurance">
+                                <option value="no">Non</option>
+                                <option value="yes">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-cni">CNI</label>
+                            <select id="member-cni" name="cni">
+                                <option value="no">Non</option>
+                                <option value="yes">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="member-medical">Certificat m&eacute;dical</label>
+                            <select id="member-medical" name="medicalCertificate">
+                                <option value="no">Non</option>
+                                <option value="yes">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row form-row--full">
+                            <label for="member-injury">Blessure / Observations</label>
+                            <textarea id="member-injury" name="injury" rows="2"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <legend>Documents &amp; paiements</legend>
+                    <div class="form-grid form-grid--three">
+                        <div class="form-row">
+                            <label for="member-photo">Photo (fichier)</label>
+                            <input type="file" id="member-photo" name="photo" accept="image/*">
+                        </div>
+                        <div class="form-row">
+                            <label for="member-pass-ref">R&eacute;f&eacute;rence PASS SPORT</label>
+                            <input type="text" id="member-pass-ref" name="passSportReference">
+                        </div>
+                        <div class="form-row">
+                            <label for="member-assurance-ref">R&eacute;f&eacute;rence assurance</label>
+                            <input type="text" id="member-assurance-ref" name="assuranceReference">
+                        </div>
+                        <div class="form-row">
+                            <label for="member-role">R&ocirc;le interne</label>
+                            <input type="text" id="member-role" name="role" placeholder="joueur, coach...">
+                        </div>
+                        <div class="form-row">
+                            <label for="member-username">Identifiant portail</label>
+                            <input type="text" id="member-username" name="username" placeholder="Optionnel">
+                        </div>
+                        <div class="form-row">
+                            <label for="member-password">Mot de passe portail</label>
+                            <input type="text" id="member-password" name="password" placeholder="Optionnel">
+                        </div>
+                    </div>
+
+                    <div class="payment-plan" data-payment-plan>
+                        <div class="payment-plan__control">
+                            <label for="member-payment-count">Nombre de paiements</label>
+                            <select id="member-payment-count" name="paymentCount" data-payment-count>
+                                <option value="1">1 &eacute;ch&eacute;ance</option>
+                                <option value="2">2 &eacute;ch&eacute;ances</option>
+                                <option value="3">3 &eacute;ch&eacute;ances</option>
+                            </select>
+                        </div>
+                        <div class="payment-plan__rows" data-payment-plan-grid>
+                            <div class="payment-plan__row" data-plan-index="1">
+                                <p class="payment-plan__row-title">1er paiement</p>
+                                <div class="form-grid form-grid--two">
+                                    <div class="form-row">
+                                        <label for="member-payment1-amount">Montant (&euro;)</label>
+                                        <input type="number" id="member-payment1-amount" name="payment1Amount" data-plan-amount="1" min="0" step="0.01">
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="member-payment1-date">Date pr&eacute;vue</label>
+                                        <input type="date" id="member-payment1-date" name="payment1Date" data-plan-date="1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-plan__row" data-plan-index="2" hidden>
+                                <p class="payment-plan__row-title">2e paiement</p>
+                                <div class="form-grid form-grid--two">
+                                    <div class="form-row">
+                                        <label for="member-payment2-amount">Montant (&euro;)</label>
+                                        <input type="number" id="member-payment2-amount" name="payment2Amount" data-plan-amount="2" min="0" step="0.01">
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="member-payment2-date">Date pr&eacute;vue</label>
+                                        <input type="date" id="member-payment2-date" name="payment2Date" data-plan-date="2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-plan__row" data-plan-index="3" hidden>
+                                <p class="payment-plan__row-title">3e paiement</p>
+                                <div class="form-grid form-grid--two">
+                                    <div class="form-row">
+                                        <label for="member-payment3-amount">Montant (&euro;)</label>
+                                        <input type="number" id="member-payment3-amount" name="payment3Amount" data-plan-amount="3" min="0" step="0.01">
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="member-payment3-date">Date pr&eacute;vue</label>
+                                        <input type="date" id="member-payment3-date" name="payment3Date" data-plan-date="3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-summary" data-payment-summary>
+                        <div class="payment-summary__item">
+                            <span>Total &agrave; payer</span>
+                            <strong data-payment-total-due>0&nbsp;&euro;</strong>
+                        </div>
+                        <div class="payment-summary__item">
+                            <span>Total pay&eacute;</span>
+                            <strong data-payment-total-paid>0&nbsp;&euro;</strong>
+                        </div>
+                        <div class="payment-summary__item">
+                            <span>Reste &agrave; payer</span>
+                            <strong data-payment-remaining>0&nbsp;&euro;</strong>
+                        </div>
+                    </div>
+
+                    <div class="payment-history" data-payment-history>
+                        <div class="payment-history__header">
+                            <h3>Historique des paiements</h3>
+                            <button type="button" class="btn-tertiary btn-small" data-action="toggle-payment-form">Ajouter un paiement</button>
+                        </div>
+                        <p class="payment-history__empty" data-payment-empty>Aucun paiement enregistr&eacute;.</p>
+                        <ul class="payment-history__list" data-payment-list></ul>
+                        <form class="payment-add" data-payment-form hidden>
+                            <div class="payment-add__grid">
+                                <div class="form-row">
+                                    <label for="member-payment-date">Date du paiement</label>
+                                    <input type="date" id="member-payment-date" data-payment-date required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="member-payment-amount">Montant vers&eacute; (&euro;)</label>
+                                    <input type="number" id="member-payment-amount" data-payment-amount min="0" step="0.01" required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="member-payment-method-select">Moyen de paiement</label>
+                                    <select id="member-payment-method-select" data-payment-method required>
+                                        <option value="Cash">Esp&egrave;ces</option>
+                                        <option value="Check">Ch&egrave;que</option>
+                                        <option value="Card">Carte</option>
+                                        <option value="Transfer">Virement</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="payment-add__actions">
+                                <button type="submit" class="btn-primary btn-small" data-action="save-payment">Valider</button>
+                                <button type="button" class="btn-ghost btn-small" data-action="cancel-payment">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </fieldset>
+
+                <div class="form-actions form-actions--sticky">
+                    <button type="submit" class="btn-primary">Save / Enregistrer</button>
+                    <button type="button" class="btn-secondary" data-modal-close>Annuler</button>
+                </div>
+                <p class="form-feedback" data-form-feedback hidden></p>
+            </form>
+        </div>
+    </section>
+
+    <script src="./assets/js/navigation.js" defer></script>
+    <script src="./assets/js/user.js" defer></script>
+</body>
+</html>

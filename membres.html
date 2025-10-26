@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire QBBC - Base des adhérents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+    <link rel="stylesheet" href="./assets/css/membres.css">
+</head>
+<body class="members-page" data-base-path="./">
+    <div class="members-shell">
+        <header class="members-header">
+            <div class="brand-block">
+                <img src="./assets/images/logo1.png" alt="Logo Quincy Bussy Basket Club" class="brand-logo">
+                <div class="brand-text">
+                    <p class="brand-subtitle">Gestion avancée</p>
+                    <h1>Espace des adhérents du Quincy Bussy Basket Club</h1>
+                </div>
+            </div>
+            <nav class="members-nav" aria-label="Navigation principale">
+                <a class="nav-link" href="./user.html">Espace utilisateur</a>
+                <a class="nav-link" href="./admin.html">Espace administrateur</a>
+                <a class="nav-link" href="./pages/stock.html">Gestion du stock</a>
+                <button class="nav-link nav-link--danger" type="button" data-action="logout">Déconnexion</button>
+            </nav>
+        </header>
+
+        <section class="members-controls" aria-label="Filtres et recherches">
+            <div class="control-group">
+                <label for="member-search">Recherche</label>
+                <input type="search" id="member-search" placeholder="Nom, téléphone ou catégorie" aria-label="Rechercher un adhérent" data-member-search>
+            </div>
+            <div class="control-group">
+                <label for="member-filter">Catégorie</label>
+                <select id="member-filter" data-member-filter>
+                    <option value="all">Toutes</option>
+                    <option value="U7">U7</option>
+                    <option value="U9">U9</option>
+                    <option value="U11">U11</option>
+                    <option value="U13">U13</option>
+                    <option value="U15">U15</option>
+                    <option value="U18">U18</option>
+                    <option value="U21">U21</option>
+                    <option value="Senior">Senior</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="member-status-filter">Statut</label>
+                <select id="member-status-filter" data-member-status>
+                    <option value="all">Tous</option>
+                    <option value="active">Actifs</option>
+                    <option value="inactive">Inactifs</option>
+                </select>
+            </div>
+            <div class="control-actions">
+                <button class="btn-secondary" type="button" data-export-csv>Exporter CSV</button>
+                <button class="btn-secondary" type="button" data-import-trigger>Importer CSV</button>
+                <input type="file" accept=".csv" data-import-input hidden>
+            </div>
+        </section>
+
+        <section class="members-table-card" aria-labelledby="members-table-title">
+            <header class="members-table-header">
+                <h2 id="members-table-title">Base complète des adhérents</h2>
+                <p class="table-meta">Mise à jour dynamique depuis l'espace administrateur</p>
+            </header>
+            <div class="table-scroll">
+                <table class="members-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">N° Adhérent</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Date Naissance</th>
+                            <th scope="col">Âge</th>
+                            <th scope="col">Sexe</th>
+                            <th scope="col">Téléphone</th>
+                            <th scope="col">Catégorie</th>
+                            <th scope="col">Adresse</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">PASS SPORT</th>
+                            <th scope="col">TICKET LOISIR CAF</th>
+                            <th scope="col">Info Parent Nom</th>
+                            <th scope="col">Info Parent Prénom</th>
+                            <th scope="col">Info Parent N° mobile</th>
+                            <th scope="col">Droit image</th>
+                            <th scope="col">Photo</th>
+                            <th scope="col">CNI</th>
+                            <th scope="col">Certificat médical</th>
+                            <th scope="col">Assurance</th>
+                            <th scope="col">Blessure</th>
+                            <th scope="col">Montant PASS SPORT</th>
+                            <th scope="col">Total dû</th>
+                            <th scope="col">Total payé</th>
+                            <th scope="col">Reste</th>
+                            <th scope="col">Paiements enregistrés</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody data-members-body>
+                        <tr>
+                            <td colspan="27">Chargement des adhérents...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            &copy; 2025 QBBC &mdash; Gestionnaire officiel du club
+        </footer>
+    </div>
+
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title" hidden data-modal="edit-member">
+        <div class="modal__overlay" data-modal-close></div>
+        <div class="modal__content">
+            <header class="modal__header">
+                <h2 id="edit-modal-title">Modifier l'adhérent</h2>
+                <button type="button" class="modal__close" aria-label="Fermer" data-modal-close>&times;</button>
+            </header>
+            <form class="modal__form" data-form="edit-member">
+                <fieldset class="form-section">
+                    <legend>Identité</legend>
+                    <div class="form-grid form-grid--two">
+                        <div class="form-row">
+                            <label for="edit-membershipNumber">N° adhérent</label>
+                            <input type="text" id="edit-membershipNumber" name="membershipNumber" readonly>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-status">Statut</label>
+                            <select id="edit-status" name="status">
+                                <option value="active">Actif</option>
+                                <option value="inactive">Inactif</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-lastName">Nom</label>
+                            <input type="text" id="edit-lastName" name="lastName" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-firstName">Prénom</label>
+                            <input type="text" id="edit-firstName" name="firstName" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-birthdate">Date de naissance</label>
+                            <input type="date" id="edit-birthdate" name="birthdate" required>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-gender">Sexe</label>
+                            <select id="edit-gender" name="gender">
+                                <option value="">Non défini</option>
+                                <option value="F">Féminin</option>
+                                <option value="M">Masculin</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-section">
+                    <legend>Coordonnées</legend>
+                    <div class="form-grid form-grid--two">
+                        <div class="form-row">
+                            <label for="edit-phone">Téléphone</label>
+                            <input type="tel" id="edit-phone" name="phone">
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-category">Catégorie</label>
+                            <select id="edit-category" name="category">
+                                <option value="U7">U7</option>
+                                <option value="U9">U9</option>
+                                <option value="U11">U11</option>
+                                <option value="U13">U13</option>
+                                <option value="U15">U15</option>
+                                <option value="U18">U18</option>
+                                <option value="U21">U21</option>
+                                <option value="Senior">Senior</option>
+                            </select>
+                        </div>
+                        <div class="form-row form-row--full">
+                            <label for="edit-address">Adresse</label>
+                            <textarea id="edit-address" name="address" rows="2"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-email">E-mail</label>
+                            <input type="email" id="edit-email" name="email">
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-section">
+                    <legend>Famille & autorisations</legend>
+                    <div class="form-grid form-grid--three">
+                        <div class="form-row">
+                            <label for="edit-parentLastName">Parent - Nom</label>
+                            <input type="text" id="edit-parentLastName" name="parentLastName">
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-parentFirstName">Parent - Prénom</label>
+                            <input type="text" id="edit-parentFirstName" name="parentFirstName">
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-parentPhone">Parent - Téléphone</label>
+                            <input type="tel" id="edit-parentPhone" name="parentPhone">
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-passSport">PASS SPORT</label>
+                            <select id="edit-passSport" name="passSport">
+                                <option value="false">Non</option>
+                                <option value="true">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-passSportAmount">Montant PASS SPORT (€)</label>
+                            <input type="number" id="edit-passSportAmount" name="passSportAmount" min="0" step="5">
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-ticketLoisirCaf">Ticket Loisir CAF</label>
+                            <select id="edit-ticketLoisirCaf" name="ticketLoisirCaf">
+                                <option value="false">Non</option>
+                                <option value="true">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-imageRights">Droit image</label>
+                            <select id="edit-imageRights" name="imageRights">
+                                <option value="Non demande">Non demandé</option>
+                                <option value="Autorise">Autorisé</option>
+                                <option value="Refuse">Refusé</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-insurance">Assurance</label>
+                            <select id="edit-insurance" name="insurance">
+                                <option value="false">Non</option>
+                                <option value="true">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-cni">CNI</label>
+                            <select id="edit-cni" name="cni">
+                                <option value="false">Non</option>
+                                <option value="true">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-medicalCertificate">Certificat médical</label>
+                            <select id="edit-medicalCertificate" name="medicalCertificate">
+                                <option value="false">Non</option>
+                                <option value="true">Oui</option>
+                            </select>
+                        </div>
+                        <div class="form-row form-row--full">
+                            <label for="edit-injury">Blessure / Observations</label>
+                            <textarea id="edit-injury" name="injury" rows="2"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-section">
+                    <legend>Paiements & documents</legend>
+                    <div class="form-grid form-grid--three">
+                        <div class="form-row">
+                            <label for="edit-photo">Photo (URL)</label>
+                            <input type="text" id="edit-photo" name="photo">
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-passSportReference">Référence PASS SPORT</label>
+                            <input type="text" id="edit-passSportReference" name="passSportReference">
+                        </div>
+                        <div class="form-row">
+                            <label for="edit-assuranceReference">Référence assurance</label>
+                            <input type="text" id="edit-assuranceReference" name="assuranceReference">
+                        </div>
+                    </div>
+
+                    <div class="payment-plan" data-payment-plan>
+                        <div class="payment-plan__control">
+                            <label for="edit-payment-count">Nombre de paiements</label>
+                            <select id="edit-payment-count" name="paymentCount" data-payment-count>
+                                <option value="1">1 échéance</option>
+                                <option value="2">2 échéances</option>
+                                <option value="3">3 échéances</option>
+                            </select>
+                        </div>
+                        <div class="payment-plan__rows" data-payment-plan-grid>
+                            <div class="payment-plan__row" data-plan-index="1">
+                                <p class="payment-plan__row-title">1er paiement</p>
+                                <div class="form-grid form-grid--two">
+                                    <div class="form-row">
+                                        <label for="edit-payment1-amount">Montant (€)</label>
+                                        <input type="number" id="edit-payment1-amount" name="payment1Amount" data-plan-amount="1" min="0" step="0.01">
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="edit-payment1-date">Date prévue</label>
+                                        <input type="date" id="edit-payment1-date" name="payment1Date" data-plan-date="1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-plan__row" data-plan-index="2" hidden>
+                                <p class="payment-plan__row-title">2e paiement</p>
+                                <div class="form-grid form-grid--two">
+                                    <div class="form-row">
+                                        <label for="edit-payment2-amount">Montant (€)</label>
+                                        <input type="number" id="edit-payment2-amount" name="payment2Amount" data-plan-amount="2" min="0" step="0.01">
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="edit-payment2-date">Date prévue</label>
+                                        <input type="date" id="edit-payment2-date" name="payment2Date" data-plan-date="2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-plan__row" data-plan-index="3" hidden>
+                                <p class="payment-plan__row-title">3e paiement</p>
+                                <div class="form-grid form-grid--two">
+                                    <div class="form-row">
+                                        <label for="edit-payment3-amount">Montant (€)</label>
+                                        <input type="number" id="edit-payment3-amount" name="payment3Amount" data-plan-amount="3" min="0" step="0.01">
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="edit-payment3-date">Date prévue</label>
+                                        <input type="date" id="edit-payment3-date" name="payment3Date" data-plan-date="3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-summary">
+                        <div class="payment-summary__item">
+                            <span>Total à payer</span>
+                            <strong data-edit-payment-total-due>0&nbsp;€</strong>
+                        </div>
+                        <div class="payment-summary__item">
+                            <span>Total payé</span>
+                            <strong data-edit-payment-total-paid>0&nbsp;€</strong>
+                        </div>
+                        <div class="payment-summary__item">
+                            <span>Reste</span>
+                            <strong data-edit-payment-remaining>0&nbsp;€</strong>
+                        </div>
+                    </div>
+
+                    <div class="payment-history">
+                        <div class="payment-history__header">
+                            <h3>Historique des paiements</h3>
+                            <button type="button" class="btn-tertiary btn-small" data-edit-payment-add>Ajouter un paiement</button>
+                        </div>
+                        <p class="payment-history__empty" data-edit-payment-empty>Aucun paiement enregistré.</p>
+                        <ul class="payment-history__list" data-edit-payment-list></ul>
+                        <form class="payment-add" data-edit-payment-form hidden>
+                            <div class="payment-add__grid">
+                                <div class="form-row">
+                                    <label for="edit-payment-date">Date du paiement</label>
+                                    <input type="date" id="edit-payment-date" data-edit-payment-date required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="edit-payment-amount">Montant versé (€)</label>
+                                    <input type="number" id="edit-payment-amount" data-edit-payment-amount min="0" step="0.01" required>
+                                </div>
+                                <div class="form-row">
+                                    <label for="edit-payment-method">Moyen de paiement</label>
+                                    <select id="edit-payment-method" data-edit-payment-method required>
+                                        <option value="Cash">Espèces</option>
+                                        <option value="Check">Chèque</option>
+                                        <option value="Card">Carte</option>
+                                        <option value="Transfer">Virement</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="payment-add__actions">
+                                <button type="submit" class="btn-primary btn-small">Valider</button>
+                                <button type="button" class="btn-ghost btn-small" data-edit-payment-cancel>Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </fieldset>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Mettre à jour</button>
+                    <button type="button" class="btn-secondary" data-modal-close>Annuler</button>
+                </div>
+                <p class="form-feedback" data-edit-feedback hidden></p>
+            </form>
+        </div>
+    </section>
+
+    <script src="./assets/js/membres.js" defer></script>
+</body>
+</html>

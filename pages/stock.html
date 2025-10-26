@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire QBBC - Gestion du stock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="stock-page" data-base-path="../">
+    <header class="dashboard-header">
+        <div class="brand">
+            <h1>Gestion du <span>stock</span></h1>
+            <p>Suivi des mat&eacute;riels et d&eacute;penses du club</p>
+        </div>
+        <div class="dashboard-actions">
+            <button type="button" data-action="add-product">Ajouter un produit</button>
+            <button type="button" data-action="export-stock">Exporter CSV</button>
+            <a href="../admin.html" data-action="back-dashboard">Retour tableau adh&eacute;rents</a>
+            <a href="../index.html" data-action="logout">D&eacute;connexion</a>
+        </div>
+    </header>
+
+    <main class="stock-wrapper">
+        <section class="stock-card" aria-labelledby="stock-heading">
+            <header>
+                <div>
+                    <h2 id="stock-heading">Inventaire du mat&eacute;riel</h2>
+                    <p class="table-meta">Phase 2 &ndash; Gestion des achats et disponibilit&eacute;s</p>
+                </div>
+                <div class="stock-controls">
+                    <input type="search" data-stock-search placeholder="Rechercher un produit ou un fournisseur" aria-label="Rechercher dans le stock">
+                    <select data-stock-filter aria-label="Filtrer par statut">
+                        <option value="all">Tous les statuts</option>
+                        <option value="available">En stock</option>
+                        <option value="ordered">Command&eacute;</option>
+                        <option value="out">Rupture</option>
+                    </select>
+                </div>
+            </header>
+            <div class="table-scroll">
+                <table class="stock-table" aria-describedby="stock-heading">
+                    <thead>
+                        <tr>
+                            <th scope="col">Produit</th>
+                            <th scope="col">Cat&eacute;gorie</th>
+                            <th scope="col">Quantit&eacute;</th>
+                            <th scope="col">Seuil d&apos;alerte</th>
+                            <th scope="col">Prix unitaire</th>
+                            <th scope="col">Date d&apos;achat</th>
+                            <th scope="col">Fournisseur</th>
+                            <th scope="col">Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody data-stock-body>
+                        <tr>
+                            <td colspan="8">Chargement du stock en cours...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        &copy; 2025 QBBC &ndash; Gestionnaire officiel du club
+    </footer>
+
+    <script src="../assets/js/main.js" defer></script>
+</body>
+</html>

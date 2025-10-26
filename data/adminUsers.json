@@ -1,0 +1,26 @@
+[
+    {
+        "id": "admin-001",
+        "username": "gestion.qbbc",
+        "password": "qbbcSecure2025",
+        "displayName": "Equipe Gestion QBBC",
+        "role": "admin",
+        "status": "active",
+        "linkedMemberId": "1",
+        "linkedMemberName": "Lea Martin",
+        "createdAt": "2025-01-10T09:00:00.000Z",
+        "updatedAt": "2025-01-10T09:00:00.000Z"
+    },
+    {
+        "id": "admin-002",
+        "username": "support.qbbc",
+        "password": "support2025",
+        "displayName": "Support QBBC",
+        "role": "support",
+        "status": "active",
+        "linkedMemberId": null,
+        "linkedMemberName": "",
+        "createdAt": "2025-02-15T08:30:00.000Z",
+        "updatedAt": "2025-03-01T12:00:00.000Z"
+    }
+]

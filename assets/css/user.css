@@ -1,0 +1,166 @@
+.modal__overlay {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.6);
+}
+/* User portal specific styling */
+.user-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 3rem clamp(1.5rem, 4vw, 4rem);
+    color: var(--color-white);
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.96) 0%, rgba(90, 10, 10, 0.9) 55%, rgba(212, 175, 55, 0.88) 100%);
+    background-attachment: fixed;
+}
+
+.user-shell {
+    width: min(1120px, 100%);
+    display: grid;
+    gap: 2.5rem;
+}
+
+.user-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.8rem;
+    padding: clamp(1.75rem, 3vw, 2.25rem);
+    background: var(--glass-surface);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-soft);
+}
+
+.user-nav {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.user-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.user-card {
+    background: rgba(0, 0, 0, 0.42);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-card);
+    padding: clamp(1.6rem, 3vw, 2.1rem);
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+}
+
+.user-card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.user-card p {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+}
+
+.user-card .btn-primary,
+.user-card .btn-secondary {
+    min-width: unset;
+    width: 100%;
+}
+
+.user-card--admin {
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    background: rgba(212, 175, 55, 0.12);
+}
+
+[data-role-gate="admin"][hidden] {
+    display: none !important;
+}
+
+.modal__content--scrollable {
+    max-height: 92vh;
+    max-width: min(1100px, 95vw);
+    width: min(1100px, 95vw);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal__content--scrollable .modal__form {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-right: 0.6rem;
+}
+
+.modal__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    margin-bottom: 0.35rem;
+}
+
+.modal__quit {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    padding: 0.55rem 1.4rem;
+    background: rgba(0, 0, 0, 0.45);
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.modal__quit:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.modal__quit:focus-visible {
+    outline: 3px solid rgba(212, 175, 55, 0.6);
+    outline-offset: 2px;
+}
+
+.form-actions--sticky {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0) 0%, rgba(10, 10, 10, 0.85) 40%);
+    backdrop-filter: blur(10px);
+    padding: 1.4rem 0.25rem 1.2rem;
+    margin-top: 1rem;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.form-actions--sticky .btn-primary {
+    min-width: clamp(220px, 40vw, 320px);
+    box-shadow: 0 18px 36px rgba(212, 175, 55, 0.38);
+}
+
+.form-actions--sticky .btn-primary:hover {
+    box-shadow: 0 20px 42px rgba(212, 175, 55, 0.48);
+}
+
+.form-actions--sticky .btn-secondary {
+    min-width: clamp(180px, 30vw, 260px);
+}
+
+@media (max-width: 768px) {
+    .user-page {
+        padding: 2.4rem 1.25rem;
+    }
+
+    .user-nav {
+        justify-content: flex-start;
+    }
+}

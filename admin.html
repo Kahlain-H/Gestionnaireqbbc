@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire QBBC - Espace Administrateur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+</head>
+<body class="admin-page" data-base-path="./">
+    <button class="back-button" type="button" data-action="go-back">Retour</button>
+    <div class="admin-shell">
+        <header class="admin-header">
+            <div class="brand-block">
+                <img src="./assets/images/logo1.png" alt="Logo Quincy Bussy Basket Club" class="brand-logo">
+                <div class="brand-text">
+                    <p class="brand-subtitle">Espace Administrateur</p>
+                    <h1>Gestion des adh&eacute;rents du Quincy Bussy Basket Club</h1>
+                </div>
+            </div>
+            <nav class="admin-nav" aria-label="Navigation principale">
+                <button class="nav-link" type="button" data-action="back-user">Espace utilisateurs</button>
+                <a class="nav-link" href="./membres.html">Base des adh&eacute;rents</a>
+                <a class="nav-link" href="./pages/stock.html">Gestion du stock</a>
+                <button class="nav-link nav-link--danger" type="button" data-action="logout">D&eacute;connexion</button>
+            </nav>
+        </header>
+
+        <section class="stats-grid" aria-label="R&eacute;sum&eacute; des adh&eacute;rents">
+            <article class="stats-card">
+                <h2>Total adh&eacute;rents</h2>
+                <p class="stats-value" data-total-members>0</p>
+                <p class="stats-meta">Base compl&egrave;te</p>
+            </article>
+            <article class="stats-card">
+                <h2>Adh&eacute;rents actifs</h2>
+                <p class="stats-value" data-active-members>0</p>
+                <p class="stats-meta">Licences &agrave; jour</p>
+            </article>
+            <article class="stats-card">
+                <h2>Adh&eacute;rents inactifs</h2>
+                <p class="stats-value" data-inactive-members>0</p>
+                <p class="stats-meta">En pause / non renouvel&eacute;s</p>
+            </article>
+            <article class="stats-card">
+                <h2>Adh&eacute;rents sold&eacute;s</h2>
+                <p class="stats-value" data-paid-members>0</p>
+                <p class="stats-meta">Paiement int&eacute;gral enregistr&eacute;</p>
+            </article>
+            <article class="stats-card">
+                <h2>Paiements partiels</h2>
+                <p class="stats-value" data-partial-members>0</p>
+                <p class="stats-meta">Adh&eacute;rents avec reste &agrave; payer</p>
+            </article>
+            <article class="stats-card">
+                <h2>Montant restant</h2>
+                <p class="stats-value" data-total-unpaid>0&nbsp;&euro;</p>
+                <p class="stats-meta">Somme des soldes ouverts</p>
+            </article>
+            <article class="stats-card">
+                <h2>Montant encaiss&eacute;</h2>
+                <p class="stats-value" data-total-received>0&nbsp;&euro;</p>
+                <p class="stats-meta">Total des paiements re&ccedil;us</p>
+            </article>
+        </section>
+
+        <section class="actions-panel" aria-label="Acc&egrave;s administration">
+            <a class="btn-primary" href="./membres.html">Gestion de la base adh&eacute;rents</a>
+            <a class="btn-secondary" href="./pages/stock.html">Inventaire &amp; stock mat&eacute;riel</a>
+            <a class="btn-secondary" href="./pages/dashboard.html">Statistiques &amp; comptabilit&eacute;</a>
+            <a class="btn-secondary" href="#admin-management">Configuration &amp; utilisateurs</a>
+        </section>
+
+        <section class="admin-management" id="admin-management" aria-label="Gestion des acc&egrave;s administrateur">
+            <header class="admin-management__header">
+                <div>
+                    <h2>Gestion des comptes administrateur</h2>
+                    <p class="admin-management__meta">Cr&eacute;ez, mettez &agrave; jour ou retirez les acc&egrave;s privil&eacute;gi&eacute;s du portail.</p>
+                </div>
+                <button class="btn-primary btn-small" type="button" data-action="open-admin-user">Nouveau compte admin</button>
+            </header>
+
+            <div class="table-scroll admin-management__table">
+                <table class="admin-table" aria-describedby="admin-table-caption">
+                    <caption id="admin-table-caption" class="sr-only">Tableau des comptes administrateur</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Compte</th>
+                            <th scope="col">Identifiant</th>
+                            <th scope="col">R&ocirc;le</th>
+                            <th scope="col">Cr&eacute;&eacute; le</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody data-admin-users-body>
+                        <tr>
+                            <td colspan="5">Chargement des comptes...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-management__forms">
+                <form class="admin-card" data-form="assign-admin">
+                    <h3>Promouvoir un adh&eacute;rent</h3>
+                    <p class="admin-card__meta">Cr&eacute;ez un identifiant administrateur li&eacute; &agrave; un profil existant.</p>
+                    <div class="form-row">
+                        <label for="assign-member">S&eacute;lectionner un membre</label>
+                        <select id="assign-member" data-admin-assign-member required>
+                            <option value="">Chargement...</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="assign-username">Identifiant admin</label>
+                        <input id="assign-username" type="text" data-admin-assign-username required autocomplete="username">
+                    </div>
+                    <div class="form-row">
+                        <label for="assign-password">Mot de passe provisoire</label>
+                        <input id="assign-password" type="text" data-admin-assign-password required autocomplete="new-password">
+                    </div>
+                    <div class="form-row">
+                        <label for="assign-role">R&ocirc;le</label>
+                        <select id="assign-role" data-admin-assign-role>
+                            <option value="admin">Administrateur</option>
+                            <option value="manager">Manager</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-primary btn-small" type="submit">Attribuer l&rsquo;acc&egrave;s</button>
+                    </div>
+                </form>
+
+                <form class="admin-card" data-form="revoke-admin">
+                    <h3>R&eacute;voquer un compte</h3>
+                    <p class="admin-card__meta">Supprimez un acc&egrave;s administrateur et restaurez le profil standard.</p>
+                    <div class="form-row">
+                        <label for="revoke-admin">Compte administrateur</label>
+                        <select id="revoke-admin" data-admin-revoke-member required>
+                            <option value="">Choisir un compte</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-tertiary btn-small" type="submit">R&eacute;voquer l&rsquo;acc&egrave;s</button>
+                    </div>
+                </form>
+            </div>
+
+            <p class="form-feedback" data-admin-access-feedback hidden></p>
+        </section>
+
+        <footer class="app-footer">
+            &copy; 2025 QBBC &mdash; Gestionnaire officiel du club
+        </footer>
+    </div>
+
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="admin-modal-title" hidden data-modal="admin-user">
+        <div class="modal__overlay" data-modal-close></div>
+        <div class="modal__content">
+            <header class="modal__header">
+                <h2 id="admin-modal-title">Compte administrateur</h2>
+                <button class="modal__close" type="button" aria-label="Fermer" data-modal-close>&times;</button>
+            </header>
+            <form class="modal__form" data-form="admin-user">
+                <div class="form-row">
+                    <label for="admin-display-name">Nom affich&eacute;</label>
+                    <input id="admin-display-name" name="displayName" type="text" required>
+                </div>
+                <div class="form-row">
+                    <label for="admin-username">Identifiant</label>
+                    <input id="admin-username" name="username" type="text" required autocomplete="username">
+                </div>
+                <div class="form-row">
+                    <label for="admin-password">Mot de passe</label>
+                    <input id="admin-password" name="password" type="password" autocomplete="new-password">
+                </div>
+                <div class="form-grid form-grid--two">
+                    <div class="form-row">
+                        <label for="admin-role">R&ocirc;le</label>
+                        <select id="admin-role" name="role">
+                            <option value="admin">Administrateur</option>
+                            <option value="manager">Manager</option>
+                            <option value="support">Support</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="admin-status">Statut</label>
+                        <select id="admin-status" name="status">
+                            <option value="active">Actif</option>
+                            <option value="inactive">Inactif</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="form-feedback" data-admin-user-feedback hidden></p>
+                <div class="form-actions">
+                    <button class="btn-primary" type="submit">Enregistrer</button>
+                    <button class="btn-tertiary" type="button" data-action="cancel-admin-user">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="./assets/js/navigation.js" defer></script>
+    <script src="./assets/js/admin.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire QBBC - Tableau des adh&eacute;rents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="dashboard-page" data-base-path="../">
+    <header class="dashboard-header">
+        <div class="brand">
+            <h1>Gestionnaire <span>QBBC</span></h1>
+            <p>Bienvenue, <strong data-user-name>Utilisateur</strong></p>
+        </div>
+        <div class="dashboard-actions">
+            <button type="button" data-action="add-member">Ajouter un adh&eacute;rent</button>
+            <button type="button" data-action="import-csv">Importer CSV</button>
+            <button type="button" data-action="export-csv">Exporter CSV</button>
+            <a href="./stock.html" data-action="manage-stock">Gestion du stock</a>
+            <a href="../index.html" data-action="logout">D&eacute;connexion</a>
+        </div>
+    </header>
+
+    <main class="table-wrapper">
+        <section class="summary-cards" aria-label="Synth&egrave;se des ressources">
+            <article class="summary-card" data-summary-card="total-stock">
+                <h3>Total mat&eacute;riel</h3>
+                <p class="summary-value" data-stock-total>0</p>
+                <p class="summary-meta">Articles enregistr&eacute;s</p>
+            </article>
+            <article class="summary-card" data-summary-card="alerts">
+                <h3>Produits en alerte</h3>
+                <p class="summary-value" data-stock-alert>0</p>
+                <p class="summary-meta">Sous le seuil minimal</p>
+            </article>
+            <article class="summary-card" data-summary-card="expenses">
+                <h3>D&eacute;penses totales</h3>
+                <p class="summary-value" data-stock-expense>0 &euro;</p>
+                <p class="summary-meta">Valeur cumul&eacute;e du stock</p>
+            </article>
+        </section>
+        <section class="table-card" aria-labelledby="members-heading">
+            <header>
+                <div>
+                    <h2 id="members-heading">Base des adh&eacute;rents</h2>
+                    <p class="table-meta">Phase 1 &ndash; Tableau pr&ecirc;t pour les int&eacute;grations futures</p>
+                </div>
+                <div class="table-controls">
+                    <input type="search" placeholder="Rechercher (nom, t&eacute;l&eacute;phone, cat&eacute;gorie)" aria-label="Rechercher un adh&eacute;rent">
+                </div>
+            </header>
+            <div class="table-scroll">
+                <table aria-describedby="members-heading">
+                    <thead>
+                        <tr>
+                            <th scope="col">N&deg; Adh&eacute;rent</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Pr&eacute;nom</th>
+                            <th scope="col">Date de naissance</th>
+                            <th scope="col">&Acirc;ge</th>
+                            <th scope="col">Cat&eacute;gorie</th>
+                            <th scope="col">T&eacute;l&eacute;phone</th>
+                            <th scope="col">Courriel</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="10">Aucune donn&eacute;e pour le moment. Utilisez le bouton &laquo;&nbsp;Ajouter un adh&eacute;rent&nbsp;&raquo; pour commencer.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        &copy; 2025 QBBC &ndash; Gestionnaire officiel du club
+    </footer>
+
+    <script src="../assets/js/main.js" defer></script>
+</body>
+</html>
